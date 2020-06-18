@@ -51,7 +51,7 @@ include(joinpath(@__DIR__, "mmc.jl"))
 include(joinpath(@__DIR__, "mmck.jl"))
 
 function λe(m::AbstractMMCK)
-	m.λ * (1 - pn(m, m.k))
+    hasproperty(m, :k) ? m.λ * (1 - pn(m, m.k)) : m.λ
 end
 
 end # module
