@@ -24,12 +24,13 @@ function imbeddedchain(m::MarkovProcess)
 end
 
 """
-	steadydist(m::MarkovProcess)
+	transition_matrix(m::MarkovProcess, t)
 
-Phân phối ổn định của quá trình Markov
+Tạo ma trận chuyển tại thời điểm t
 """
-function steadydist(m::MarkovProcess)
-	stationarydist(imbeddedchain(m))
+function transition_matrix(m::MarkovProcess, t)
+	D, Q = eigen(m.G)
+	Q * diagm(exp.(D * t)) * inv(Q)
 end
 
 function Base.show(io::IO, m::MarkovProcess)
