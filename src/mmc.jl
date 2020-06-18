@@ -29,9 +29,7 @@ function pn(m::MMC, n::Integer)
 		1 / (d1 + d2)
 	elseif n < c
 		pn(m, 0) * r^n / factorial(n)
-	elseif n <= m.k
-		pn(m, 0) * r^n / factorial(c) / c^(n-c)
-	else 0
+	else pn(m, 0) * r^n / factorial(c) / c^(n-c)
 	end
 end
 
