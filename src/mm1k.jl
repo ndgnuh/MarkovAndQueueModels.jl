@@ -1,5 +1,5 @@
 """
-MM1K(λ, μ, k)
+	MM1K(λ, μ, k)
 
 Tạo mô hình `M/M/1/K`.
 """
@@ -8,7 +8,10 @@ struct MM1K{T} <: AbstractMMCK
 	μ::Union{T, Real}
 	k::Union{T, Integer}
 	ρ::Union{T, Real}
-	MM1K(λ, μ, k) = new{typeof(λ)}(λ, μ, k, λ/μ)
+	function MM1K(λ, μ, k)
+		T = Union{typeof(μ), typeof(λ)}
+		new{T}(λ, μ, k, λ/μ)
+	end
 end
 
 function pn(m::MM1K, n::Int)
@@ -47,5 +50,5 @@ function W(m::MM1K)
 end
 
 function Wq(m::MM1K)
-	W(m) - 1/μ
+	W(m) - 1/m.μ
 end

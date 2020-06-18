@@ -12,7 +12,8 @@ struct MMC{T} <: AbstractMMCK
 	function MMC(λ, μ, c)
 		r = λ / μ
 		ρ = r / c
-		new{typeof(μ)}(μ, λ, c, r, ρ) 
+		T = Union{typeof(μ), typeof(λ)}
+		new{T}(μ, λ, c, r, ρ) 
 	end
 end
 

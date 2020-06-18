@@ -8,13 +8,15 @@ struct MM1{T<:Any} <: AbstractMMCK
 	μ::Union{T, Real}
 	ρ::Union{T, Real}
 	function MM1(λ, μ)
-		new{typeof(λ)}(λ, μ, λ/μ)
+		T = Union{typeof(μ), typeof(λ)}
+		new{T}(λ, μ, λ/μ)
 	end
 	function MM1(λ::Real, μ::Real)
 		if λ/μ >= 1
 			@error "ρ phải < 1"
 		end
-		new{typeof(λ)}(λ, μ, λ/μ)
+		T = Union{typeof(μ), typeof(λ)}
+		new{T}(λ, μ, λ/μ)
 	end
 end
 

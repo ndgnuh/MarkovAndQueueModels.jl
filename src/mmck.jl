@@ -1,5 +1,5 @@
 """
-	MMCK(μ, λ, c)
+	MMCK(μ, λ, c, k)
 
 Tạo mô hình M/M/c/k
 """
@@ -11,12 +11,8 @@ struct MMCK{T} <:AbstractMMCK
 	r::Union{T, Real}
 	ρ::Union{T, Real}
 	function MMCK(λ, μ, c, k)
-		new{typeof(λ)}(λ,
-			       μ,
-			       c,
-			       k,
-			       λ/μ,
-			       λ/μ/c)
+		T = Union{typeof(μ), typeof(λ)}
+		new{T}(λ, μ, c,	k, λ/μ,	λ/μ/c)
 	end
 end
 
@@ -42,7 +38,7 @@ function L(m::MMCK)
 end
 
 function Lq(m::MMCK)
-	sum(i * pn(m, i + c) for i=c:m.k)
+	sum((i - m.c) * pn(m, i) for i=m.c:m.k)
 end
 
 function W(m::MMCK)
